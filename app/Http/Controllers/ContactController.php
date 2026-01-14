@@ -20,11 +20,13 @@ class ContactController extends Controller
             'email'   => 'required|email',
             'subject' => 'required|string',
             'message' => 'required|string',
+            'file' => 'required|',
         ]);
 
         Mail::to($data['email'])->send(new Contact([
             'subject' => $data['subject'],
-            'message' => $data['message']
+            'message' => $data['message'],
+            'file' => $data['file']
         ]));
 
         echo 'Email enviado com sucesso!';

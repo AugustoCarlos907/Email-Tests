@@ -24,7 +24,7 @@
         </ul>
     @endif
 
-    <form action="{{ route('contact.sendMail') }}" method="POST">
+    <form action="{{ route('contact.sendMail') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div style="margin-bottom:15px;">
@@ -43,6 +43,12 @@
             <label>Mensagem</label>
             <textarea name="message" rows="5" 
                       style="width:100%; padding:8px;"></textarea>
+        </div>        
+        
+        <div style="margin-bottom:15px;">
+            <label>Arquivo</label>
+           <input type="file" name="file[]"  multiple
+                   style="width:100%; padding:8px;">
         </div>
 
         <button type="submit"

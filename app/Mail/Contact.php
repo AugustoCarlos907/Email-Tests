@@ -5,6 +5,7 @@ namespace App\Mail;
 use Faker\Provider\Address;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -59,6 +60,16 @@ class Contact extends Mailable
     //anexos do email`
     public function attachments(): array
     {
-        return [];
+        $data = $this->data['file'];
+
+        $attachment = [];
+
+        foreach ($data as $file) {
+            $attachment[] =  Attachment::fromPath($file->getRealPath())
+                                        ->as($file->getClientOriginalName())
+                                        ->withMime($file->getClientMimeType());
+        }
+
+        return $attachment;
     }
 }
