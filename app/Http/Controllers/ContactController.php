@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\Contact;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Mail;
 
@@ -23,7 +23,7 @@ class ContactController extends Controller
             'file' => 'required|',
         ]);
 
-        Mail::to($data['email'])->send(new Contact([
+        Mail::to($data['email'])->send(new ContactMail([
             'subject' => $data['subject'],
             'message' => $data['message'],
             'file' => $data['file']
