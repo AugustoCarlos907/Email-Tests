@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Jobs\PaymentJob;
+use App\Jobs\TesteJob;
 use App\Mail\PaymentMail;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,7 @@ Route::get('/', function () {
 
 
 Route::get('/contact', [ContactController::class , 'index'])->name('contact.index');
-Route::post('/contact', [ContactController::class , 'sendMail'])->name('contact.sendMail');
+Route::post('/contact',[ContactController::class , 'sendMail'])->name('contact.sendMail');
 
 Route::get('/payment', function () {
     //pagamento
@@ -24,6 +25,7 @@ Route::get('/payment', function () {
     // dispatch job para envio do email
     // PaymentJob::dispatch($user);
 
+    TesteJob::dispatch();
     // Definindo a fila 'payments' para o job
     PaymentJob::dispatch($user)->onQueue('payments');
 
